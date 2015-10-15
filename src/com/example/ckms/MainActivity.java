@@ -1,8 +1,5 @@
 package com.example.ckms;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -27,7 +24,6 @@ import android.widget.Toast;
 import com.example.ckms.BottomLayout.OnLeftAndRightClickListener;
 import com.example.ckms.model.GlobalValue;
 import com.example.ckms.model.K;
-import com.example.ckms.model.Knowledge;
 import com.example.ckms.util.HttpCallbackListener;
 import com.example.ckms.util.HttpUtil;
 import com.example.ckms.util.KAdapter;
@@ -37,9 +33,9 @@ public class MainActivity extends Activity {
 	private ListView listView;
 	private ProgressDialog progressDialog;
 	private KAdapter adapter;
-	private List<String> dataList = new ArrayList<String>();
 	private Button button;
 	private EditText editText;
+
 	K k = new K();
 
 	@Override
@@ -64,10 +60,6 @@ public class MainActivity extends Activity {
 						startActivity(intent);
 					}
 				});
-		// KnowledgeList = k.loadKnowledge2();
-		// for (Knowledge knowledge : KnowledgeList) {
-		// dataList.add(knowledge.getTitle());
-		// }
 
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -98,7 +90,7 @@ public class MainActivity extends Activity {
 		});
 
 		// 进入页面后主动触发按钮一次
-		onClickListener.onClick(null);
+		// onClickListener.onClick(null);
 
 	}
 
@@ -113,18 +105,7 @@ public class MainActivity extends Activity {
 		}
 	};
 
-	private void queryKnowledgeList() {
-		Log.d("my", "exec queryKnowledgeList");
-		Log.d("my", "KnowledgeList.size():" + k.getList().size());
-		dataList.clear();
-		if (k.getList().size() > 0) {
-			for (Knowledge knowledge : k.getList()) {
-				dataList.add(knowledge.getId() + ":" + knowledge.getTitle());
-			}
-			adapter.notifyDataSetChanged();
-		}
-	}
-
+	// 由于solr客户端自带httpclient于安卓上的冲突,暂时无法解决
 	// private void queryFromSolrServer(String key, K k) {
 	// if ("".equals(key))
 	// key = "*";
@@ -175,7 +156,7 @@ public class MainActivity extends Activity {
 						@Override
 						public void run() {
 							closeProgressDialog();
-							queryKnowledgeList();
+							adapter.notifyDataSetChanged();
 						}
 					});
 				}
@@ -188,7 +169,7 @@ public class MainActivity extends Activity {
 					@Override
 					public void run() {
 						closeProgressDialog();
-						Toast.makeText(MainActivity.this, "加载失败",
+						Toast.makeText(MainActivity.this, "加载失败,请检查网络情况",
 								Toast.LENGTH_SHORT).show();
 					}
 				});

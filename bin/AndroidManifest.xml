@@ -3,9 +3,13 @@
     package="com.example.ckms"
     android:versionCode="1"
     android:versionName="1.0" >
-<uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
     <uses-sdk
-        android:minSdkVersion="10"
+        android:minSdkVersion="15"
         android:targetSdkVersion="18" />
 
     <application
@@ -22,8 +26,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-         <activity android:name=".Kshow"></activity>
-         <activity android:name=".Login"></activity>
+        <activity android:name=".Kshow" >
+        </activity>
+        <activity android:name=".Login" >
+        </activity>
+        <activity android:name=".BaseActivity" >
+        </activity>
     </application>
 
 </manifest>
